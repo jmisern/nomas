@@ -1,181 +1,259 @@
+/* =====================================================
+   OBSERVATORIO "NO MÁS" - ESTILOS
+   Autor: Jonathan Machado Isern
+   ===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-/* ===== FIRMA OCULTA ===== */
-/* Desarrollado por Jonathan Machado Isern - 2025 */
-body::after {
-    content: "© 2026 Jonathan Machado Isern | Observatorio No Más";
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    font-size: 1px;
-    color: transparent;
-    user-select: none;
-    pointer-events: none;
-    opacity: 0;
-}
 
 body {
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     background: #f4f7fc;
-    color: black;
+    color: #000;
     line-height: 1.5;
     display: flex;
     flex-direction: column;
-}
-body h2{
-    color:#6e0e94;
-}
-body h1{
-    color:#6e0e94;
+    min-height: 100vh;
 }
 
-/* Barra superior */
+h1, h2 { color: #6e0e94; }
+h3 { color: #2c1a4e; }
+
+img { max-width: 100%; height: auto; }
+
+/* ============ NAVBAR ============ */
 .navbar {
-    background: #6e0e94;
+    background: #fff;
     padding: 1rem 2rem;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: #6e0e94;
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
+
 .logo-title {
-    font-size: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.nomas {
+    height: 60px;
+    width: auto;
+}
+
+.brand-btn {
+    background: none;
+    border: none;
+    color: #6e0e94;
+    font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 1px;
-    display: flex;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0.5rem;
+    text-align: left;
 }
-.nomas{
-    height: 60px;
-}
+
 .nav-links {
     display: flex;
     gap: 1.8rem;
     flex-wrap: wrap;
+    align-items: center;
 }
+
 .nav-links button {
     background: none;
     border: none;
-    color: #e0d6f5;
+    color: #6e0e94;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    padding: 0.3rem 0;
-    transition: 0.2s;
+    padding: 0.5rem 0;
+    transition: color 0.2s, border-color 0.2s;
     border-bottom: 2px solid transparent;
+    font-family: inherit;
 }
-.nav-links button:hover, .nav-links button.active {
-    color: white;
-    padding: 10px;
+
+.nav-links button:hover,
+.nav-links button.active {
+    color: #2c1a4e;
+    border-bottom-color: #6e0e94;
 }
-/* Contenedor principal */
+
+.nav-links button:focus-visible,
+.menu-toggle:focus-visible,
+.brand-btn:focus-visible {
+    outline: 2px solid #6e0e94;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #6e0e94;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+/* ============ CONTENEDOR PRINCIPAL ============ */
 .container {
-    max-width: 1300px;
-    max-height: 100%;
+    flex: 1;
+    width: 100%;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
     display: flex;
+    flex-direction: column;
 }
-/* secciones */
+
+/* ============ PÁGINAS ============ */
 .page {
     display: none;
     animation: fade 0.3s ease;
 }
+
 .page.active-page {
     display: block;
 }
+
 @keyframes fade {
-    from { opacity: 0; transform: translateY(10px);}
-    to { opacity: 1; transform: translateY(0);}
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-/* hero banner */
+
+/* ============ PORTADA ============ */
+.wallpaper {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+    border-radius: 1.5rem;
+}
+
+/* ============ HERO ============ */
 .hero {
-    background: white;
+    background: #fff;
     border-radius: 2rem;
     padding: 2rem;
     margin-bottom: 2rem;
-    align-content: center;
     text-align: center;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.05);
-    
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
 }
 
-.logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1rem;
-    align-items: center;
+.hero-title {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    font-weight: 500;
+    color: #6e0e94;
 }
-.logos span {
-    background: white;
-    padding: 0.3rem 1rem;
-    border-radius: 30px;
-    font-weight: bold;
-    color: #2c1a4e;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+/* ============ TIMELINE / BLOQUES DE TEXTO ============ */
+.timeline {
+    background: #fff;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
-/* tarjetas */
+
+.timeline p { margin-bottom: 1rem; }
+.timeline p:last-child { margin-bottom: 0; }
+
+.lista-monitoreo {
+    margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.lista-monitoreo li { margin-bottom: 0.4rem; }
+
+/* ============ TARJETAS ============ */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.5rem;
     margin: 2rem 0;
 }
+
 .card {
-    background: white;
+    background: #fff;
     border-radius: 1.5rem;
     padding: 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
 }
+
+.card:hover { transform: translateY(-3px); }
+
 .card i {
     font-size: 2.2rem;
     color: #2c1a4e;
     margin-bottom: 0.8rem;
+    display: block;
 }
-.timeline {
-    display: flex;
-    justify-content: space-between;
-    background: white;
-    border-radius: 2rem;
-    padding: 1.2rem;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-}
+
+/* ============ MAPA / MENSAJES ============ */
 .mapa-cuba {
-    background: white;
+    background: #fff;
     border-radius: 1.5rem;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
+
+/* ============ ACORDEÓN ============ */
 .acordeon {
-    background: white;
+    background: #fff;
     border-radius: 1.2rem;
     margin: 1rem 0;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
+
 .acordeon-header {
-    background: white;
-    padding: 1rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c1a4e;
+    padding: 1rem 1.2rem;
     cursor: pointer;
     border-radius: 1.2rem;
+    transition: background 0.2s;
 }
+
+.acordeon-header:hover { background: #f5eef8; }
+
+.acordeon-header:focus-visible {
+    outline: 2px solid #6e0e94;
+    outline-offset: -2px;
+}
+
 .acordeon-content {
     display: none;
-    padding: 1rem;
+    padding: 1rem 1.2rem;
     background: #faf9ff;
+    border-top: 1px solid #eee;
 }
+
+.acordeon-content.visible { display: block; }
+
+/* ============ KPI ============ */
 .kpi {
     display: flex;
     gap: 1.5rem;
@@ -183,123 +261,433 @@ body h1{
     justify-content: center;
     margin: 2rem 0;
 }
+
 .kpi-card {
     background: #6e0e94;
-    color: white;
+    color: #fff;
     border-radius: 2rem;
     padding: 1.5rem;
     text-align: center;
     min-width: 160px;
 }
-.kpi-card h3 {
-    font-size: 2rem;
+
+.kpi-card h3 { font-size: 2rem; color: #fff; }
+
+/* ============ ENCUESTA ============ */
+.encuesta-panel {
+    background: #6e0e94;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
 }
+
+.encuesta-panel-title { color: #fff; margin-bottom: 0.5rem; }
+.encuesta-panel-desc { color: #fff; margin-bottom: 10px; }
+
 .encuesta-form {
-    background: white;
+    background: #fff;
     border-radius: 2rem;
     padding: 1.8rem;
     margin-bottom: 2rem;
 }
-.pregunta-compare {
-    background: white;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    border-radius: 1rem;
-    color:black;
-}
-.badge-observatorio {
-    background: #2c1a4e;
-    color: white;
-    display: inline-block;
-    padding: 0.2rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    margin-top: 0.5rem;
-}
-.grafico-container {
-    margin: 1rem 0;
-    max-width: 500px;
-}
-button {
-    background: #6e0e94;
+
+.encuesta-form fieldset {
     border: none;
+    margin-bottom: 1rem;
+}
+
+.encuesta-form legend {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #2c1a4e;
+}
+
+.encuesta-form > label { display: block; margin: 0.8rem 0 0.4rem; font-weight: 600; }
+.encuesta-form input[type="number"] { width: 100%; max-width: 220px; }
+
+.consent-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-weight: normal;
+}
+
+.form-actions { margin-top: 1rem; }
+
+.msg-error { color: #c00; margin-top: 0.5rem; font-weight: 600; }
+
+.encuesta-hint { color: #4a627a; margin-bottom: 1rem; }
+
+/* Preguntas dinámicas */
+.pregunta-compare {
+    background: #fff;
+    padding: 1.2rem;
+    margin-bottom: 1.8rem;
+    border-radius: 1rem;
+    color: #000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.pregunta-texto {
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+
+.pregunta-tipo {
+    font-size: 0.75rem;
+    font-weight: normal;
+}
+
+.pregunta-tipo.unica { color: #6c757d; }
+.pregunta-tipo.multiple { color: #28a745; }
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+.radio-group label,
+.checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+}
+
+.analisis-box {
+    background: #e8f0fe;
+    border-radius: 1rem;
+    padding: 0.8rem;
+    margin-top: 0.8rem;
+    border-left: 4px solid #6e0e94;
+}
+
+.analisis-box hr { margin: 0.5rem 0; border: none; border-top: 1px solid #ccc; }
+
+.mensaje-final { margin-top: 1.5rem; font-weight: bold; text-align: center; }
+
+.progreso-box {
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    display: inline-block;
+}
+
+/* ============ BOTONES ============ */
+button {
+    background: #fff;
+    border: 1px solid #ddd;
     padding: 0.8rem 2rem;
     border-radius: 1rem;
     font-weight: bold;
-    color: white;
+    color: #601a7c;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+    font-size: 1rem;
 }
-button:hover {
-    background: #601a7c;
+
+button:hover { background: #f5eef8; }
+button:active { transform: scale(0.98); }
+
+.btn-primary {
+    background: #2c1a4e;
+    color: #fff;
+    border: none;
 }
+
+.btn-primary:hover { background: #4a2f7a; }
+
+/* ============ RECOMENDACIONES ============ */
 .recomendaciones-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1rem;
     margin: 1.5rem 0;
 }
+
 .recom-item {
-    background: white;
+    background: #fff;
     padding: 1rem;
     border-radius: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+
+/* ============ RECURSO ============ */
+.recurso-box {
+    background: #f2e6d5;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    border: 1px solid #e0c8a8;
+}
+
+.recurso-box h3 { margin-bottom: 0.5rem; }
+
+/* ============ CONTACTOS (placeholder) ============ */
+.contactos-placeholder {
+    background: #fff;
+    border-radius: 2rem;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 1.5rem;
+    color: #2c1a4e;
+    border: 2px dashed #d8cbe4;
+}
+
+.contactos-placeholder i {
+    font-size: 3rem;
+    color: #6e0e94;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.contactos-placeholder p { font-size: 1.1rem; font-weight: 600; }
+
+.contactos-placeholder-sub {
+    font-size: 0.95rem !important;
+    font-weight: normal !important;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* ============ BARRA DE CONTROL DE ENCUESTA ============ */
+.encuesta-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #6e0e94;
+}
+
+.encuesta-toolbar-info {
+    font-size: 0.95rem;
+    color: #2c1a4e;
+    font-weight: 600;
+}
+
+.btn-salir {
+    background: #fff;
+    color: #c0392b;
+    border: 1.5px solid #c0392b;
+    padding: 0.55rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-salir:hover {
+    background: #c0392b;
+    color: #fff;
+}
+
+.btn-salir:focus-visible {
+    outline: 2px solid #c0392b;
+    outline-offset: 2px;
+}
+
+/* ============ MODAL DE SALIDA ============ */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal-overlay.visible {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 1.8rem;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.modal-box h3 {
+    color: #2c1a4e;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.modal-box p {
+    color: #444;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.modal-actions button {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-guardar-salir {
+    background: #2c1a4e;
+    color: #fff;
+    border: none;
+}
+
+.btn-guardar-salir:hover { background: #4a2f7a; }
+
+.btn-salir-sin-guardar {
+    background: #fff;
+    color: #c0392b;
+    border: 1.5px solid #c0392b;
+}
+
+.btn-salir-sin-guardar:hover {
+    background: #c0392b;
+    color: #fff;
+}
+
+.btn-cancelar-salir {
+    background: #f1f1f1;
+    color: #333;
+    border: none;
+}
+
+.btn-cancelar-salir:hover { background: #e0e0e0; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ============ FOOTER ============ */
 footer {
-    background: #6e0e94;
-    color: #ccc;
-    padding: 2rem;
-    margin-top: 7rem; 
-    
+    background: #fff;
+    color: #6e0e94;
+    padding: 1.5rem 1rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
+
 .footer-logos {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
     margin: 1rem 0;
+    width: 100%;
+    max-width: 1000px;
 }
+
+.footer-logos img { max-width: 100%; height: auto; display: block; }
+
+.footer-mail,
+.footer-copy { text-align: center; font-weight: bold; }
+
+/* ============ INPUTS ============ */
 input, select {
     padding: 0.5rem;
     border-radius: 1rem;
     border: 1px solid #ccc;
-}
-.radio-group, .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin: 0.5rem 0;
-}
-hr {
-    margin: 1rem 0;
-}
-@media (max-width: 700px) {
-    .navbar { flex-direction: column; gap: 0.5rem; }
-    .nav-links { justify-content: center; }
-}
-.footer-logos img {
-max-width: 50%;
-height: auto;
-display: block;
-
-}
-/* Estilo para las imágenes de gráficos */
-.grafico-encuesta {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    font-family: inherit;
 }
 
-.grafico-encuesta:hover {
-    transform: scale(1.02);
+input:focus-visible {
+    outline: 2px solid #6e0e94;
+    outline-offset: 1px;
+    border-color: #6e0e94;
 }
 
-.contenedor-grafico {
-    background: white;
-    padding: 0.8rem;
-    border-radius: 1rem;
-    margin: 0.8rem 0;
-    text-align: center;
+hr { margin: 1rem 0; border: none; border-top: 1px solid #ddd; }
+
+/* ============ MEDIA QUERIES ============ */
+@media (max-width: 768px) {
+    .navbar { padding: 1rem; flex-wrap: wrap; }
+
+    .menu-toggle { display: block; }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #2c1a4e;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 0.5rem 0;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links.active { display: flex; animation: slideDown 0.25s ease; }
+
+    .nav-links button {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1.05rem;
+        text-align: left;
+        color: #fff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 0;
+    }
+
+    .nav-links button:hover,
+    .nav-links button.active {
+        background: rgba(255, 255, 255, 0.12);
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-btn { font-size: 1.15rem; }
+
+    .hero { padding: 1.2rem; }
+    .hero-title { font-size: 1rem; }
+
+    .encuesta-form { padding: 1.2rem; }
+
+    .encuesta-toolbar { flex-direction: column; align-items: stretch; }
+    .btn-salir { width: 100%; }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ PREFERENCIAS DE MOVIMIENTO REDUCIDO ============ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }
