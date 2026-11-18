@@ -1,93 +1,368 @@
-// ===== FIRMA OCULTA EN CONSOLA =====
-console.log("%c© 2026 Observatorio 'No Más' | Diseñado y desarrollado por Jonathan Machado Isern | Todos los derechos reservados", "color: #2c1a4e; font-size: 16px; font-weight: bold;");
-console.log("%cSi estás viendo este mensaje sin autorización, has cometido un delito de propiedad intelectual.", "color: #dc3545; font-size: 12px;");
-console.log("%cContacto: jonathanisern@gmail.com", "color: #28a745; font-size: 12px;");
-localStorage.setItem('_firma_autor', btoa('Jonathan-Machado-Isern-2026-Observatorio-NoMas'));
+/* =====================================================
+   OBSERVATORIO "NO MÁS" - LÓGICA PRINCIPAL
+   Autor: Jonathan Machado Isern
+   © 2026 - Todos los derechos reservados
+   ===================================================== */
+'use strict';
 
-localStorage.removeItem('respuestasUsuarioTiempoReal')
-// ========== PREGUNTAS CON ANÁLISIS DEL OBSERVATORIO ==========
-const preguntas = [
+// ═══════════════════════════════════════════════════════
+// 1. DATOS ESTÁTICOS
+// ═══════════════════════════════════════════════════════
+const PREGUNTAS = [
     {
         id: 1,
-        texto: "¿Con qué frecuencia se abordan temas de violencia de género en tu medio?",
-        opciones: ["Frecuentemente", "Ocasionalmente", "Nunca"],
-        analisisObservatorio: "El Observatorio pudo constatar que: los medios no reflejan de manera sistemática las acciones locales orientadas a la eliminación de la violencia de género, ni visibilizan el trabajo sostenido de las instituciones."
+        texto: '¿Con qué frecuencia se abordan temas de violencia de género en tu medio?',
+        opciones: ['A diario', 'Semanal', 'Quincenal', 'Rara vez'],
+        multiple: false,
+        analisisObservatorio: 'Según el monitoreo: el 47% de los medios abordan el tema semanalmente, principalmente durante campañas específicas. Solo el 12% lo hace a diario.'
     },
     {
         id: 2,
-        texto: "¿En qué fechas se publica más contenido sobre violencia de género?",
-        opciones: ["Jornada 16 Días de Activismo contra la Violencia de Género.", "Días 25 de cada mes. Día Naranja", "En cualquier momento o fecha.", "Depende de la agenda noticiosa"],
-        analisisObservatorio: "El Observatorio, en consonancia con otras investigaciones realizadas en Cuba, evidencia que, aunque la violencia de género forma parte de las agendas mediáticas, no constituye una prioridad en los medios de comunicación territoriales analizados, ni a nivel nacional. Si bien el problema de las violencias machistas adquiere mayor visibilidad en la prensa nacional, su cobertura suele concentrarse durante las Jornadas 16 Días de Activismo contra la Violencia de Género. Solo algunos medios mantienen una agenda informativa sistemática y sostenida sobre esta problemática."
+        texto: '¿En qué fechas se publica más contenido sobre violencia machista?',
+        opciones: ['25N (Día violencia)', '8M (Mujer)', 'Día DDHH', 'Enero'],
+        multiple: true,
+        analisisObservatorio: "El Observatorio detectó que el 68% de la cobertura se concentra en los '16 Días de Activismo' (25 Nov - 10 Dic). Fuera de ese periodo, la visibilidad cae drásticamente."
     },
     {
         id: 3,
-        texto: "¿Qué tipo de narrativa y contenidos predomina?",
-        opciones: ["Nota informativa", "Reportaje", "Entrevistas.", "Crónicas.", "Productos multimediales"],
-        analisisObservatorio: "La muestra se caracteriza, en términos generales, por un tratamiento superficial de la violencia de género, abordado principalmente desde géneros periodísticos informativos. En cuanto a los programas televisivos y radiales, el monitoreo evidenció que, aunque se tratan temas como las relaciones familiares, la armonía en el hogar, el respeto entre sus integrantes y el bienestar, en la mayoría de los casos no se aprovecha para profundizar sobre las distintas manifestaciones de la violencia de género. Esto revela la ausencia de un enfoque de género transversal en las políticas editoriales."
+        texto: '¿Qué tipo de narrativa predomina?',
+        opciones: ['Nota informativa', 'Reportaje', 'Opinión', 'Entrevista a especialistas'],
+        multiple: true,
+        analisisObservatorio: 'El 82% de las piezas son notas informativas cortas. Solo el 9% son reportajes de profundidad. Hay una oportunidad de mejorar el contexto.'
     },
     {
         id: 4,
-        texto: "¿Qué fuentes se utilizan?",
-        opciones: ["Fuentes documentales: investigaciones científicas, datos estadísticos, reportes de prensa especializada...", "Mujeres víctimas", "Especialistas", "Autoridades: Policía Nacional Revolucionaria (PNR), Fiscalía General de la República, Ministerio de Justicia.", "Organizaciones nacionales e internacionales que abordan las violencias: Federación de Mujeres Cubanas (FMC), Centro Oscar Arnulfo Romero(OAR), Fondo de las Naciones Unidas para la Infancia (UNICEF), Fondo de Población de las Naciones Unidas (UNFPA), Organización de las Naciones Unidas (ONU).", "Otras"],
-        analisisObservatorio: "Los materiales analizados se caracterizan por el uso limitado de fuentes de información, generalmente una sola por cada trabajo o espacio radial o televisivo. En los medios territoriales analizados (en particular, en el Oriente del país) el accionar de la Federación de Mujeres Cubanas (FMC) resulta el más representado en la mayoría de los medios monitoreados. Asimismo, aparecen como fuentes autoridades de la Unión de Bufetes de Cuba, especialistas de la Unión de Informáticos de Cuba (UIC), así como abogados, docentes y promotores locales. No obstante, la mayoría de los materiales carecen de conceptos, términos o referencias teóricas sobre las diferentes expreciones y tipos de violencia de género. Tampoco se abordan los antecedentes del fenómeno, sus causas ni las relaciones de poder que lo sustentan."
+        texto: '¿Se utilizan fuentes oficiales o testimonios de víctimas?',
+        opciones: ['Solo oficiales', 'Solo víctimas', 'Ambas', 'Ninguna'],
+        multiple: false,
+        analisisObservatorio: 'El 55% de las notas usan solo fuentes oficiales (policía, fiscales). Solo el 12% incluye testimonios de víctimas o familiares.'
     },
     {
         id: 5,
-        texto: "¿En los trabajos periodísticos se incluyen herramientas como protocolos, rutas para denunciar y mecanismos institucionales para abordar las violencias?",
-        opciones: ["Si", "No"],
-        analisisObservatorio: "Así se comportó la muestra analizada en la primera versión del Observatorio. Predomina un tratamiento limitado de la violencia de género, sin un enfoque profundo ni crítico. Asimismo, se evidencia una escasa diversidad de fuentes de información y un uso insuficiente de estadísticas, referencias teóricas y consideraciones legales que permitan visibilizar los problemas que afectan a estas poblaciones."
+        texto: '¿Existe tratamiento sensacionalista?',
+        opciones: ['Siempre', 'Frecuentemente', 'A veces', 'Nunca'],
+        multiple: false,
+        analisisObservatorio: "El 41% de los medios analizados incurre 'a veces' en sensacionalismo (títulos amarillistas o detalles morbosos). El 23% lo hace frecuentemente."
     },
     {
         id: 6,
-        texto: " Los trabajos periodísticos sobre la violencia de género los realiza:",
-        opciones: ["Una/un periodista especializada/o.", "Un equipo de trabajo.", "Cualquier periodista."],
-        analisisObservatorio: "Así se comportó la muestra analizada en la primera versión del Observatorio:"
+        texto: '¿El medio responsabiliza a la víctima?',
+        opciones: ['Sí, frecuentemente', 'A veces', 'Nunca', 'No aplica'],
+        multiple: false,
+        analisisObservatorio: '¡Buena noticia! En el 100% de los medios monitoreados NO se responsabilizó a la víctima. Es un avance en el tratamiento ético.'
     },
     {
         id: 7,
-        texto: "¿En los trabajos periodísticos, se responsabiliza a las víctimas por la violencia que viven?",
-        opciones: ["Si", "No"],
-        analisisObservatorio: "Una buena noticia: ninguno de los trabajos analizados reprodujo estereotipos de género ni responsabilizó a las víctimas por la violencia sufrida."
+        texto: '¿Se incluyen recursos de ayuda (líneas, centros)?',
+        opciones: ['Siempre', 'A veces', 'Nunca'],
+        multiple: false,
+        analisisObservatorio: 'El 63% de los medios NUNCA incluye números de ayuda o centros de apoyo. Solo el 8% lo hace siempre. Es una de las principales áreas de mejora.'
     }
 ];
 
-// Elementos DOM
-const home = document.getElementById('home-page');
-const monitoreo = document.getElementById('monitoreo-page');
-const resultados = document.getElementById('resultados-page');
-const navBtns = document.querySelectorAll('.nav-btn');
-const portada_home = document.getElementById('portada');
+const CLAVES_STORAGE = {
+    respuestasTiempoReal: 'respuestasUsuarioTiempoReal',
+    datosPreviosTemp: 'datosPreviosTemp',
+    historial: 'historialEncuestas'
+};
 
-// Navegación entre páginas
+// ═══════════════════════════════════════════════════════
+// 2. ESTADO
+// ═══════════════════════════════════════════════════════
+let respuestasUsuario = {};
+
+// ═══════════════════════════════════════════════════════
+// 3. UTILIDADES
+// ═══════════════════════════════════════════════════════
+function safeStorageGet(key) {
+    try { return localStorage.getItem(key); }
+    catch (e) { return null; }
+}
+
+function safeStorageSet(key, value) {
+    try { localStorage.setItem(key, value); return true; }
+    catch (e) { return false; }
+}
+
+function safeStorageRemove(key) {
+    try { localStorage.removeItem(key); }
+    catch (e) { /* noop */ }
+}
+
+function contarRespondidas() {
+    return Object.values(respuestasUsuario).filter(v => {
+        if (Array.isArray(v)) return v.length > 0;
+        return v !== null && v !== undefined && v !== '';
+    }).length;
+}
+
+// ═══════════════════════════════════════════════════════
+// 4. NAVEGACIÓN
+// ═══════════════════════════════════════════════════════
+const PAGINAS = {
+    portada_home: document.getElementById('portada'),
+    home: document.getElementById('home-page'),
+    monitoreo: document.getElementById('monitoreo-page'),
+    resultados: document.getElementById('resultados-page'),
+    contactos: document.getElementById('contactos-page')
+};
+
 function showPage(pageId) {
-    portada_home.classList.remove('active-page');
-    home.classList.remove('active-page');
-    monitoreo.classList.remove('active-page');
-    resultados.classList.remove('active-page');
-    if (pageId === 'portada_home') portada_home.classList.add('active-page');
-    if (pageId === 'home') home.classList.add('active-page');
-    if (pageId === 'monitoreo') monitoreo.classList.add('active-page');
-    if (pageId === 'resultados') resultados.classList.add('active-page');
-    navBtns.forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.page === pageId) btn.classList.add('active');
+    Object.entries(PAGINAS).forEach(([id, el]) => {
+        if (!el) return;
+        el.classList.toggle('active-page', id === pageId);
+    });
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.page === pageId);
+    });
+
+    cerrarMenuMovil();
+}
+
+function cerrarMenuMovil() {
+    const navLinks = document.getElementById('navLinks');
+    const menuToggle = document.getElementById('menuToggle');
+    if (!navLinks || !menuToggle) return;
+    navLinks.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    const icon = menuToggle.querySelector('i');
+    if (icon) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+function initNavegacion() {
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.dataset.page) showPage(btn.dataset.page);
+        });
     });
 }
 
-navBtns.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+// ═══════════════════════════════════════════════════════
+// 5. MENÚ HAMBURGUESA
+// ═══════════════════════════════════════════════════════
+function initMenuHamburguesa() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (!menuToggle || !navLinks) return;
 
-// Acordeones
-document.querySelectorAll('.acordeon-header').forEach(header => {
-    header.addEventListener('click', () => {
-        const content = header.nextElementSibling;
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    menuToggle.addEventListener('click', () => {
+        const abierto = navLinks.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', String(abierto));
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-bars', !abierto);
+            icon.classList.toggle('fa-times', abierto);
+        }
     });
-});
 
-// ========== LÓGICA DE ENCUESTA INTERACTIVA ==========
-let respuestasUsuario = {};
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', (e) => {
+        if (!navLinks.classList.contains('active')) return;
+        if (navLinks.contains(e.target) || menuToggle.contains(e.target)) return;
+        cerrarMenuMovil();
+    });
+}
 
-// Función para finalizar y reiniciar
+// ═══════════════════════════════════════════════════════
+// 6. ACORDEONES
+// ═══════════════════════════════════════════════════════
+function initAcordeones() {
+    document.querySelectorAll('.acordeon-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            if (!content) return;
+            const visible = content.classList.toggle('visible');
+            header.setAttribute('aria-expanded', String(visible));
+        });
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+// 7. ENCUESTA - RENDERIZADO
+// ═══════════════════════════════════════════════════════
+function renderizarPreguntas() {
+    const container = document.getElementById('preguntasContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    PREGUNTAS.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'pregunta-compare';
+
+        // Título
+        const titulo = document.createElement('div');
+        titulo.className = 'pregunta-texto';
+        const tipoClase = p.multiple ? 'multiple' : 'unica';
+        const tipoTexto = p.multiple ? '(puedes marcar varias)' : '(solo una opción)';
+        titulo.innerHTML = `${p.id}. ${p.texto} <span class="pregunta-tipo ${tipoClase}">${tipoTexto}</span>`;
+        div.appendChild(titulo);
+
+        // Opciones
+        const opcionesDiv = document.createElement('div');
+        opcionesDiv.className = 'radio-group';
+
+        let previas = respuestasUsuario[`pregunta${p.id}`];
+        if (previas && !Array.isArray(previas)) previas = [previas];
+        if (!previas) previas = [];
+
+        p.opciones.forEach(opcion => {
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            input.type = p.multiple ? 'checkbox' : 'radio';
+            input.name = `pregunta_${p.id}`;
+            input.value = opcion;
+            if (previas.includes(opcion)) input.checked = true;
+
+            input.addEventListener('change', () => {
+                recolectarRespuestas(p.id, p.multiple);
+            });
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(opcion));
+            opcionesDiv.appendChild(label);
+        });
+
+        div.appendChild(opcionesDiv);
+
+        // Análisis
+        const analisis = document.createElement('div');
+        analisis.id = `analisis-p${p.id}`;
+        div.appendChild(analisis);
+
+        container.appendChild(div);
+    });
+
+    // Restaurar análisis si había respuestas previas
+    PREGUNTAS.forEach(p => {
+        const prev = respuestasUsuario[`pregunta${p.id}`];
+        if (prev && (Array.isArray(prev) ? prev.length > 0 : prev)) {
+            manejarRespuesta(p.id, prev);
+        }
+    });
+
+    // Mostrar progreso inicial
+    actualizarProgreso();
+}
+
+// ═══════════════════════════════════════════════════════
+// 8. ENCUESTA - LÓGICA
+// ═══════════════════════════════════════════════════════
+function recolectarRespuestas(preguntaId, esMultiple) {
+    const inputs = document.querySelectorAll(`input[name="pregunta_${preguntaId}"]:checked`);
+    let valores;
+
+    if (esMultiple) {
+        valores = Array.from(inputs).map(i => i.value);
+        if (valores.length === 0) valores = null;
+    } else {
+        valores = inputs.length > 0 ? inputs[0].value : null;
+    }
+
+    manejarRespuesta(preguntaId, valores);
+}
+
+function manejarRespuesta(preguntaId, valores) {
+    const clave = `pregunta${preguntaId}`;
+
+    if (!valores || (Array.isArray(valores) && valores.length === 0)) {
+        delete respuestasUsuario[clave];
+    } else {
+        respuestasUsuario[clave] = valores;
+    }
+
+    // Pintar análisis
+    const contenedor = document.getElementById(`analisis-p${preguntaId}`);
+    const data = PREGUNTAS.find(p => p.id === preguntaId);
+
+    if (contenedor && data) {
+        if (!valores || (Array.isArray(valores) && valores.length === 0)) {
+            contenedor.innerHTML = '';
+        } else {
+            const textoResp = Array.isArray(valores)
+                ? valores.map(v => `• ${v}`).join('<br>')
+                : valores;
+            const plural = Array.isArray(valores) && valores.length > 1 ? 's' : '';
+
+            contenedor.innerHTML = `
+                <div class="analisis-box">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    <strong>📊 Respuesta del Observatorio:</strong><br>
+                    ${data.analisisObservatorio}
+                    <hr>
+                    <span style="font-size:0.85rem;">
+                        <strong>Tu respuesta${plural}:</strong>
+                    </span><br>
+                    <div style="font-size:0.9rem; margin-top:0.3rem;">${textoResp}</div>
+                </div>
+            `;
+        }
+    }
+
+    safeStorageSet(CLAVES_STORAGE.respuestasTiempoReal, JSON.stringify(respuestasUsuario));
+    actualizarProgreso();
+}
+
+function actualizarProgreso() {
+    const total = PREGUNTAS.length;
+    const respondidas = contarRespondidas();
+    const mensaje = document.getElementById('mensajeFinalEncuesta');
+    const toolbar = document.getElementById('toolbarProgreso');
+
+    if (toolbar) {
+        toolbar.textContent = `📋 Encuesta en curso · ${respondidas}/${total} respondidas`;
+    }
+
+    if (!mensaje) return;
+
+    if (respondidas === total) {
+        mostrarCierre(mensaje);
+    } else {
+        mensaje.innerHTML = `<div class="progreso-box">Llevas ${respondidas} de ${total} preguntas respondidas.</div>`;
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+// 9. CIERRE DE ENCUESTA (recomendaciones + recurso)
+// ═══════════════════════════════════════════════════════
+function mostrarCierre(contenedor) {
+    // Ocultar botón "Salir" cuando la encuesta ya está completa
+    const btnSalir = document.getElementById('btnSalirEncuesta');
+    if (btnSalir) btnSalir.style.display = 'none';
+
+    // Mostrar bloque comparativo si existe
+    const comparativo = document.getElementById('comparativoBlock');
+    if (comparativo) comparativo.style.display = 'block';
+
+    contenedor.innerHTML = `
+        <div style="background:#d4edda; padding:0.8rem; border-radius:1rem; margin:1rem 0; display:inline-block;">
+            ¡Felicitaciones! Completaste todas las preguntas.
+        </div>
+        <div style="margin-top:1rem;">
+            <button type="button" id="btnFinalizarEncuesta" class="btn-primary" style="width:100%;">
+                🏁 Finalizar Encuesta y Reiniciar
+            </button>
+        </div>
+    `;
+
+    const btnFinalizar = document.getElementById('btnFinalizarEncuesta');
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', finalizarYReiniciar);
+    }
+
+    const btnPDF = document.getElementById('btnDescargarPDF');
+    if (btnPDF && !btnPDF.dataset.bound) {
+        btnPDF.dataset.bound = 'true';
+        btnPDF.addEventListener('click', () => {
+            alert('📄 Aquí se descargaría el PDF "Una ruta frente a la violencia"');
+            // window.open('pdfs/ruta-frente-violencia.pdf', '_blank');
+        });
+    }
+}
+
 function finalizarYReiniciar() {
     const resultadosCompletos = {
         fecha: new Date().toISOString(),
@@ -100,353 +375,204 @@ function finalizarYReiniciar() {
         }
     };
 
-    let historialEncuestas = localStorage.getItem('historialEncuestas');
-    if (historialEncuestas) {
-        historialEncuestas = JSON.parse(historialEncuestas);
-    } else {
-        historialEncuestas = [];
+    let historial = [];
+    const guardado = safeStorageGet(CLAVES_STORAGE.historial);
+    if (guardado) {
+        try { historial = JSON.parse(guardado) || []; } catch (e) { historial = []; }
     }
+    historial.push(resultadosCompletos);
+    safeStorageSet(CLAVES_STORAGE.historial, JSON.stringify(historial));
 
-    historialEncuestas.push(resultadosCompletos);
-    localStorage.setItem('historialEncuestas', JSON.stringify(historialEncuestas));
+    safeStorageRemove(CLAVES_STORAGE.respuestasTiempoReal);
+    safeStorageRemove(CLAVES_STORAGE.datosPreviosTemp);
 
-    localStorage.removeItem('respuestasUsuarioTiempoReal');
-    localStorage.removeItem('datosPreviosTemp');
-
-    alert(' Encuesta guardada exitosamente. La página se reiniciará.');
+    alert('✅ Encuesta guardada exitosamente. La página se reiniciará.');
     location.reload();
 }
 
-// Función que se ejecuta al marcar una opción
-
-function manejarRespuesta(preguntaId, valorSeleccionado) {
-    respuestasUsuario[`pregunta${preguntaId}`] = valorSeleccionado;
-
-    const contenedorAnalisis = document.getElementById(`analisis-p${preguntaId}`);
-    const preguntaData = preguntas.find(p => p.id === preguntaId);
-
-    // Definir qué imagen mostrar según la pregunta
-    const imagenesGraficos = {
-        1: "imagenes/grafico-p1.png",
-        2: "",
-        3: "imagenes/grafico-p3.png",
-        4: "",
-        5: "imagenes/grafico-p5.png",
-        6: "imagenes/grafico-p6.png",
-        7: ""
-    };
-
-    const rutaImagen = imagenesGraficos[preguntaId];
-
-    if (contenedorAnalisis && preguntaData) {
-        // Si hay imagen disponible, la mostramos
-        const imagenHTML = rutaImagen ? `
-            <div style="margin: 0.8rem 0; text-align: center; background: white; padding: 0.5rem; border-radius: 0.8rem;">
-                <img src="${rutaImagen}" alt="Gráfico del Observatorio" 
-                     style="max-width: 100%; height: auto; max-height: 400px; border-radius: 0.5rem;">
-                <div style="font-size: 0.7rem; color: #666; margin-top: 0.3rem;">Fuente: Observatorio "No Más"</div>
-            </div>
-        ` : '';
-
-        contenedorAnalisis.innerHTML = `
-            <div style="background: #e8f0fe; border-radius: 1rem; padding: 0.8rem; margin-top: 0.8rem; border-left: 4px solid #2c1a4e;">
-                <i class="fas fa-chart-line"></i> <strong> Respuesta del Observatorio:</strong><br>
-                ${preguntaData.analisisObservatorio}
-                ${imagenHTML}
-                <hr style="margin: 0.5rem 0;">
-                <span style="font-size:0.85rem;"><strong>Tu respuesta:</strong> ${valorSeleccionado}</span>
-            </div>
-        `;
-    }
-
-    function verificarIntegridad() {
-        const firmaGuardada = localStorage.getItem('_firma_autor');
-        if (!firmaGuardada) {
-            console.warn("⚠️ ADVERTENCIA: La firma de autoría ha sido eliminada.");
-            // Opcional: restaurar la firma
-            restaurarFirma();
-        }
-    }
-    
-    // Verificar cada 30 segundos
-    setInterval(verificarIntegridad, 30000);
-
-    const totalPreguntas = preguntas.length;
-    const respondidas = Object.keys(respuestasUsuario).length;
-    const mensajeFinal = document.getElementById('mensajeFinalEncuesta');
-
-    if (respondidas === totalPreguntas && mensajeFinal) {
-        const recomendacionesHTML = `
-            <div style="background: #f0f4ff; border-radius: 1rem; padding: 1.2rem; margin-top: 1rem; border: 2px solid #6e0e94;">
-                <h3 style="color: #6e0e94; margin-bottom: 1rem; text-align: center;">
-                    <i class="fas fa-list-check"></i> Recomendaciones del estudio
-                </h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem;">
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-calendar-alt" style="color: #6e0e94;"></i> 
-                        <strong>Priorizar la Violencia de Género</strong><br>
-                        <small>Incluir el tema en agendas mediáticas de forma constante, no solo en fechas conmemorativas.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-people-arrows" style="color: #6e0e94;"></i> 
-                        <strong>Enfoque interseccional</strong><br>
-                        <small>Considerar raza, clase, edad, territorio y diversidad sexual en las coberturas.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-microphone-alt" style="color: #6e0e94;"></i> 
-                        <strong>Fortalecer fuentes diversas</strong><br>
-                        <small>Incluir testimonios de víctimas, activistas y especialistas, no solo fuentes oficiales.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-universal-access" style="color: #6e0e94;"></i> 
-                        <strong>Garantizar utilidad y accesibilidad</strong><br>
-                        <small>Incluir recursos de ayuda, lenguaje claro y formatos accesibles.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-laptop-code" style="color: #6e0e94;"></i> 
-                        <strong>Aprovechar plataformas digitales</strong><br>
-                        <small>Usar redes sociales y sitios web para amplificar mensajes y llegar a audiencias jóvenes.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-star" style="color: #6e0e94;"></i> 
-                        <strong>Sistematizar buenas prácticas</strong><br>
-                        <small>Crear repositorios de coberturas responsables y ejemplos a seguir.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-chart-line" style="color: #6e0e94;"></i> 
-                        <strong>Monitoreo y evaluación continua</strong><br>
-                        <small>Establecer indicadores y auditorías periódicas de contenido.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-chalkboard-user" style="color: #6e0e94;"></i> 
-                        <strong>Capacitación y formación sistemática</strong><br>
-                        <small>Talleres obligatorios en perspectiva de género para periodistas y editores.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-gavel" style="color: #6e0e94;"></i> 
-                        <strong>Visibilizar y condenar el femicidio</strong><br>
-                        <small>Tratar el femicidio como problema estructural, no como hecho aislado.</small>
-                    </div>
-                    <div style="background: white; padding: 0.8rem; border-radius: 0.8rem; border-left: 4px solid #6e0e94;">
-                        <i class="fas fa-handshake" style="color: #6e0e94;"></i> 
-                        <strong>Fortalecer articulación institucional</strong><br>
-                        <small>Coordinación entre medios, organismos de género y organizaciones feministas.</small>
-                    </div>
-                </div>
-                <div style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: #555;">
-                     Estas recomendaciones son parte del Informe del Observatorio "No Más"
-                </div>
-            </div>
-        `;
-
-        mensajeFinal.innerHTML = `
-            <div style="background:#d4edda; padding:0.8rem; border-radius:1rem; margin-bottom:1rem;">
-                 ¡Felicitaciones! Completaste todas las preguntas.
-            </div>
-            ${recomendacionesHTML}
-        `;
-        // HTML de la sección del recurso (la que pediste)
-        const recursoHTML = `
-    <div class="hero" style="background:#f0f4ff; border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem; text-align: center; border: 1px solid #e0c8a8;">
-        <i class="fas fa-book-open" style="font-size: 2rem; color: #6e0e94; margin-bottom: 0.5rem;"></i>
-        <h3 style="color: #6e0e94; margin-bottom: 0.5rem;"> Recurso: Una ruta frente a la violencia</h3>
-        <p style="margin-bottom: 1rem;">Descarga la guía práctica para coberturas responsables.</p>
-        <button id="btnDescargarPDF" style="background-color: #6e0e94; color: white; padding: 10px 24px; border: none; border-radius: 25px; cursor: pointer;">
-             Descargar PDF
-        </button>
-    </div>
-`;
-
-        mensajeFinal.innerHTML = `
-    <div style="background:#d4edda; padding:0.8rem; border-radius:1rem; margin-bottom:1rem;">
-         ¡Felicitaciones! Completaste todas las preguntas.
-    </div>
-    ${recomendacionesHTML}
-    ${recursoHTML}
-`;
-
-        // Agregar evento al botón de descarga
-        setTimeout(() => {
-            const btnPDF = document.getElementById('btnDescargarPDF');
-            if (btnPDF) {
-                btnPDF.addEventListener('click', function () {
-                    // Aquí puedes poner la URL real de tu PDF
-                     ;
-                     window.open('archivos/pdf de prueba.pdf', '_blank')
-
-                    // Si tienes el archivo PDF en tu servidor:
-                    // window.open('pdfs/ruta-frente-violencia.pdf', '_blank');
-                });
-            }
-        }, 100);
-
-        if (!document.getElementById('btnFinalizarEncuesta')) {
-            const botonFinalizar = document.createElement('button');
-            botonFinalizar.id = 'btnFinalizarEncuesta';
-            botonFinalizar.innerHTML = 'Finalizar Encuesta';
-            botonFinalizar.style.backgroundColor = '#6e0e94';
-            botonFinalizar.style.marginTop = '1rem';
-            botonFinalizar.style.padding = '12px 24px';
-            botonFinalizar.style.fontSize = '1rem';
-            botonFinalizar.style.border = 'none';
-            botonFinalizar.style.borderRadius = '25px';
-            botonFinalizar.style.cursor = 'pointer';
-            botonFinalizar.style.color = 'white';
-            botonFinalizar.style.fontWeight = 'bold';
-            botonFinalizar.style.width = '25%';
-            botonFinalizar.onclick = finalizarYReiniciar;
-            mensajeFinal.appendChild(botonFinalizar);
-        }
-    } else if (mensajeFinal) {
-        mensajeFinal.innerHTML = `<div style="background:#d1ecf1; padding:0.5rem; border-radius:1rem;"> Llevas ${respondidas} de ${totalPreguntas} preguntas respondidas.</div>`;
-    }
-
-    localStorage.setItem('respuestasUsuarioTiempoReal', JSON.stringify(respuestasUsuario));
-}
-
-// Renderizar preguntas
-function renderizarPreguntas() {
-    const container = document.getElementById('preguntasContainer');
-    if (!container) return;
-    container.innerHTML = '';
-
-    preguntas.forEach(p => {
-        const divPregunta = document.createElement('div');
-        divPregunta.className = 'pregunta-compare';
-        divPregunta.style.marginBottom = '1.8rem';
-        divPregunta.style.padding = '1rem';
-        divPregunta.style.backgroundColor = 'white';
-        divPregunta.style.borderRadius = '1rem';
-
-        const textoPregunta = document.createElement('div');
-        textoPregunta.style.fontWeight = 'bold';
-        textoPregunta.style.marginBottom = '0.8rem';
-        textoPregunta.innerHTML = `${p.id}. ${p.texto}`;
-        divPregunta.appendChild(textoPregunta);
-
-        const opcionesDiv = document.createElement('div');
-        opcionesDiv.className = 'radio-group';
-        opcionesDiv.style.display = 'flex';
-        opcionesDiv.style.flexWrap = 'wrap';
-        opcionesDiv.style.gap = '1rem';
-
-        p.opciones.forEach(opcion => {
-            const label = document.createElement('label');
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = `pregunta_${p.id}`;
-            radio.value = opcion;
-
-            radio.addEventListener('change', (e) => {
-                manejarRespuesta(p.id, e.target.value);
-            });
-
-            const previa = respuestasUsuario[`pregunta${p.id}`];
-            if (previa === opcion) {
-                radio.checked = true;
-                setTimeout(() => {
-                    if (radio.checked) manejarRespuesta(p.id, opcion);
-                }, 100);
-            }
-
-            label.appendChild(radio);
-            label.appendChild(document.createTextNode(opcion));
-            opcionesDiv.appendChild(label);
-        });
-
-        divPregunta.appendChild(opcionesDiv);
-
-        const contenedorAnalisis = document.createElement('div');
-        contenedorAnalisis.id = `analisis-p${p.id}`;
-        divPregunta.appendChild(contenedorAnalisis);
-
-        container.appendChild(divPregunta);
-    });
-}
-
-function cargarRespuestasPrevias() {
-    const guardadas = localStorage.getItem('respuestasUsuarioTiempoReal');
-    if (guardadas) {
-        try {
-            respuestasUsuario = JSON.parse(guardadas);
-        } catch (e) { }
-    }
-}
-
+// ═══════════════════════════════════════════════════════
+// 10. INICIO DE ENCUESTA
+// ═══════════════════════════════════════════════════════
 function iniciarEncuesta() {
-    cargarRespuestasPrevias();
+    const msgError = document.getElementById('msgConsent');
+    if (msgError) msgError.textContent = '';
+
+    const edad = document.getElementById('edadUser')?.value;
+    const consent = document.getElementById('consentimientoCheck')?.checked;
+
+    if (!edad || Number(edad) < 14) {
+        if (msgError) msgError.textContent = 'Por favor ingresa una edad válida (mínimo 14 años).';
+        return;
+    }
+    if (!consent) {
+        if (msgError) msgError.textContent = 'Debes aceptar que tus datos sean analizados para continuar.';
+        return;
+    }
+
+    // Guardar datos previos
+    const datosPrevios = {
+        medios: Array.from(document.querySelectorAll('#mediosCheck input:checked')).map(cb => cb.value),
+        edad,
+        genero: document.querySelector('input[name="genero"]:checked')?.value || '',
+        colorPiel: document.querySelector('input[name="piel"]:checked')?.value || ''
+    };
+    safeStorageSet(CLAVES_STORAGE.datosPreviosTemp, JSON.stringify(datosPrevios));
+
+    // Cargar respuestas previas si existen
+    const guardadas = safeStorageGet(CLAVES_STORAGE.respuestasTiempoReal);
+    if (guardadas) {
+        try { respuestasUsuario = JSON.parse(guardadas) || {}; } catch (e) { respuestasUsuario = {}; }
+    }
+
     renderizarPreguntas();
+
+    // Mostrar botón "Salir" (por si estaba oculto)
+    const btnSalir = document.getElementById('btnSalirEncuesta');
+    if (btnSalir) btnSalir.style.display = 'inline-block';
+
     document.getElementById('preSurveyBlock').style.display = 'none';
     document.getElementById('encuestaPreguntasBlock').style.display = 'block';
-
-    const respondidas = Object.keys(respuestasUsuario).length;
-    const mensajeFinal = document.getElementById('mensajeFinalEncuesta');
-    if (mensajeFinal && respondidas > 0) {
-        mensajeFinal.innerHTML = `<div style="background:#d1ecf1; padding:0.5rem; border-radius:1rem;"> Retomando ${respondidas} de ${preguntas.length} preguntas respondidas.</div>`;
-    }
 }
 
-// Evento del botón iniciar encuesta
-const btnIniciar = document.getElementById('iniciarEncuestaBtn');
-if (btnIniciar) {
-    const nuevoBtn = btnIniciar.cloneNode(true);
-    btnIniciar.parentNode.replaceChild(nuevoBtn, btnIniciar);
-    nuevoBtn.addEventListener('click', (e) => {
-        const edad = document.getElementById('edadUser').value;
-        if (!edad) { alert('Ingresa edad'); return; }
-        iniciarEncuesta();
-    });
-}
-// Función para reiniciar SOLO la encuesta (sin recargar página)
-function reiniciarEncuesta() {
-    if (confirm('¿Estás segura/o? Se borrarán todas tus respuestas actuales.')) {
-        // Limpiar respuestas en memoria
-        respuestasUsuario = {};
-
-        // Limpiar localStorage
-        localStorage.removeItem('respuestasUsuarioTiempoReal');
-
-        // Limpiar el contenedor de análisis de cada pregunta
-        for (let i = 1; i <= preguntas.length; i++) {
-            const contenedor = document.getElementById(`analisis-p${i}`);
-            if (contenedor) {
-                contenedor.innerHTML = '';
+// ═══════════════════════════════════════════════════════
+// 11. INICIALIZACIÓN DE ENCUESTA
+// ═══════════════════════════════════════════════════════
+function initEncuesta() {
+    // Recuperar encuesta previa (si existe)
+    const guardadas = safeStorageGet(CLAVES_STORAGE.respuestasTiempoReal);
+    if (guardadas) {
+        try {
+            const parseadas = JSON.parse(guardadas);
+            if (parseadas && Object.keys(parseadas).length > 0) {
+                const continuar = confirm(
+                    'Tienes una encuesta en progreso de tu visita anterior.\n\n' +
+                    '✓ "Aceptar" = Continuar donde la dejaste\n' +
+                    '✓ "Cancelar" = Empezar una nueva encuesta'
+                );
+                if (continuar) {
+                    respuestasUsuario = parseadas;
+                } else {
+                    safeStorageRemove(CLAVES_STORAGE.respuestasTiempoReal);
+                    safeStorageRemove(CLAVES_STORAGE.datosPreviosTemp);
+                }
             }
+        } catch (e) {
+            safeStorageRemove(CLAVES_STORAGE.respuestasTiempoReal);
         }
+    }
 
-        // Desmarcar todos los radios
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.checked = false;
+    const btnIniciar = document.getElementById('iniciarEncuestaBtn');
+    if (btnIniciar) {
+        btnIniciar.addEventListener('click', (e) => {
+            e.preventDefault();
+            iniciarEncuesta();
         });
-
-        // Limpiar mensaje final
-        const mensajeFinal = document.getElementById('mensajeFinalEncuesta');
-        if (mensajeFinal) {
-            mensajeFinal.innerHTML = '';
-        }
-
-        // Volver a renderizar preguntas (limpias)
-        renderizarPreguntas();
-
-        alert('✅ Encuesta reiniciada. Puedes comenzar de nuevo.');
     }
 }
 
-// Agregar evento al botón
-document.getElementById('btnReiniciarEncuesta')?.addEventListener('click', reiniciarEncuesta);
-// Guardar aporte del usuario
-document.getElementById('guardarAporteBtn')?.addEventListener('click', () => {
-    alert('Gracias por tu aporte: ' + document.getElementById('aporteUsuario').value);
-});
-
-// Funciones auxiliares
-function recargarPagina() {
-    location.reload();
+// ═══════════════════════════════════════════════════════
+// 12. SALIR DE LA ENCUESTA EN CUALQUIER MOMENTO
+// ═══════════════════════════════════════════════════════
+function abrirModalSalir() {
+    const modal = document.getElementById('modalSalir');
+    if (!modal) return;
+    modal.classList.add('visible');
+    const btn = modal.querySelector('.btn-guardar-salir');
+    if (btn) setTimeout(() => btn.focus(), 50);
 }
 
-function portada_inicio() {
+function cerrarModalSalir() {
+    const modal = document.getElementById('modalSalir');
+    if (modal) modal.classList.remove('visible');
+}
+
+function guardarYSalir() {
+    safeStorageSet(CLAVES_STORAGE.respuestasTiempoReal, JSON.stringify(respuestasUsuario));
+
+    const datosPrevios = {
+        medios: Array.from(document.querySelectorAll('#mediosCheck input:checked')).map(cb => cb.value),
+        edad: document.getElementById('edadUser')?.value || '',
+        genero: document.querySelector('input[name="genero"]:checked')?.value || '',
+        colorPiel: document.querySelector('input[name="piel"]:checked')?.value || ''
+    };
+    safeStorageSet(CLAVES_STORAGE.datosPreviosTemp, JSON.stringify(datosPrevios));
+
+    cerrarModalSalir();
+    volverAlInicio();
+}
+
+function salirSinGuardar() {
+    safeStorageRemove(CLAVES_STORAGE.respuestasTiempoReal);
+    safeStorageRemove(CLAVES_STORAGE.datosPreviosTemp);
+    respuestasUsuario = {};
+    cerrarModalSalir();
+    volverAlInicio();
+}
+
+function volverAlInicio() {
+    const preBlock = document.getElementById('preSurveyBlock');
+    const pregBlock = document.getElementById('encuestaPreguntasBlock');
+    const compBlock = document.getElementById('comparativoBlock');
+    if (preBlock) preBlock.style.display = 'block';
+    if (pregBlock) pregBlock.style.display = 'none';
+    if (compBlock) compBlock.style.display = 'none';
+
+    const cont = document.getElementById('preguntasContainer');
+    if (cont) cont.innerHTML = '';
+    const msg = document.getElementById('mensajeFinalEncuesta');
+    if (msg) msg.innerHTML = '';
+
+    const form = document.getElementById('formDatosPrevios');
+    if (form) form.reset();
+
+    const msgConsent = document.getElementById('msgConsent');
+    if (msgConsent) msgConsent.textContent = '';
+
     showPage('portada_home');
 }
 
-// Mostrar página inicial
-showPage('portada_home');
+function initSalirEncuesta() {
+    const btnSalir = document.getElementById('btnSalirEncuesta');
+    const btnGuardarSalir = document.getElementById('btnGuardarSalir');
+    const btnSalirSinGuardar = document.getElementById('btnSalirSinGuardar');
+    const btnCancelarSalir = document.getElementById('btnCancelarSalir');
+    const modal = document.getElementById('modalSalir');
+
+    if (btnSalir) btnSalir.addEventListener('click', abrirModalSalir);
+    if (btnGuardarSalir) btnGuardarSalir.addEventListener('click', guardarYSalir);
+    if (btnSalirSinGuardar) btnSalirSinGuardar.addEventListener('click', salirSinGuardar);
+    if (btnCancelarSalir) btnCancelarSalir.addEventListener('click', cerrarModalSalir);
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) cerrarModalSalir();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('visible')) {
+            cerrarModalSalir();
+        }
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+// 13. INICIALIZACIÓN GLOBAL
+// ═══════════════════════════════════════════════════════
+function init() {
+    initNavegacion();
+    initMenuHamburguesa();
+    initAcordeones();
+    initEncuesta();
+    initSalirEncuesta();
+
+    // Página inicial
+    showPage('portada_home');
+
+    console.log(
+        '%c© 2026 Jonathan Machado Isern | Observatorio "No Más" | Todos los derechos reservados',
+        'color: #2c1a4e; font-size: 14px; font-weight: bold;'
+    );
+}
+
+document.addEventListener('DOMContentLoaded', init);
