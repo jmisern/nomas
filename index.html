@@ -5,14 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="author" content="Jonathan Machado Isern">
-    <meta name="copyright" content="© 2026 jonathan Machado Isern. Todos los derechos reservados">
+    <meta name="copyright" content="© 2026 Jonathan Machado Isern. Todos los derechos reservados">
     <meta name="owner" content="Jonathan Machado Isern">
+    <meta name="description" content="Observatorio sobre Violencia de Género en Medios de Comunicación - Proyecto No Más">
     <title>Observatorio "No Más" | Monitoreo de Medios</title>
-    <!-- Font Awesome 6 (gratuito) -->
+
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Chart.js para gráficos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+
     <link rel="stylesheet" href="css/styles.css">
+
     <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
     <link rel="shortcut icon" href="favicon/favicon.ico" />
@@ -21,136 +25,191 @@
 </head>
 
 <body>
-    <div class="navbar">
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" aria-label="Navegación principal">
         <div class="logo-title">
-            <div><img class="nomas" src="1.png" alt="nomas"></div><button style="font-size: 1.5rem;
-        font-weight: bold;
-        letter-spacing: 1px;" id="name-logo" class="nav-btn" data-page="portada_home">Observatorio de Medios</button>
+            <div><img class="nomas" src="1.png" alt="Logotipo No Más"></div>
+            <button
+                type="button"
+                id="name-logo"
+                class="nav-btn brand-btn"
+                data-page="portada_home"
+                aria-label="Ir a la portada">
+                Observatorio de Medios
+            </button>
         </div>
-        <div class="nav-links">
-            <button class="nav-btn active" data-page="home">¿Qué somos?</button>
-            <button class="nav-btn" data-page="monitoreo">¿Qué monitoreamos?</button>
-            <button class="nav-btn" data-page="resultados">Encuesta </button>
-        </div>
-    </div>
 
-    <div class="container">
-        <!-- ==================== PÁGINA PORTADA  ================= -->
-        <div id="portada" class="page active-page">
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="navLinks">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <button type="button" class="nav-btn active" data-page="home">¿Qué somos?</button>
+            <button type="button" class="nav-btn" data-page="monitoreo">¿Qué monitoreamos?</button>
+            <button type="button" class="nav-btn" data-page="resultados">Encuesta</button>
+            <button type="button" class="nav-btn" data-page="contactos">Contactos</button>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- ============ PORTADA ============ -->
+        <section id="portada" class="page active-page" aria-labelledby="portada-title">
+            <img class="wallpaper" src="wallpaper3.png" alt="Imagen de portada del Observatorio No Más">
             <div class="hero">
-                <h1> Observatorio sobre Violencia de Género en medios de comunicación. <br> </h1>
-                <div class="logos">
-                    <img src="logo.png" alt="Logo">
-                </div>
-
-
+                <h1 id="portada-title" class="hero-title">
+                    En Cuba la violencia de género es un problema social que exige el compromiso de las
+                    instituciones, las organizaciones y la ciudadanía. Frente a esta realidad, la
+                    comunicación es una herramienta clave para prevenirla y ofrecer respuestas efectivas.
+                </h1>
             </div>
-        </div>
+        </section>
 
-        <!-- ==================== PÁGINA HOME (¿QUÉ SOMOS?) ================= -->
-        <div id="home-page" class="page active-page">
+        <!-- ============ HOME (¿QUÉ SOMOS?) ============ -->
+        <section id="home-page" class="page" aria-labelledby="home-title">
+            <h2 id="home-title">¿Qué somos?</h2>
 
-            <h2> ¿Qué somos?</h2>
             <div class="timeline">
-                <p style=" margin-bottom:1rem;"> <br>El Observatorio sobre Violencia de Género en Medios de Comunicación
-                    (OVGMC) surge como uno de los resultados del proyecto “No Más: prevención y respuesta a la violencia
-                    de género contra las mujeres en Cuba”. <br>
-                    <br>
-                    “No más…” es una iniciativa impulsada por la Federación de Mujeres Cubanas (FMC), la Editorial de la
-                    Mujer, la asociación italiana COSPE, el Centro Martin Luther King, en alianza con el Grupo Galfisa
-                    del Instituto de Filosofía y la Unión Nacional de Juristas de Cuba (UNJC); con el apoyo de la Unión
-                    Europea en Cuba. <br>
-                    <br>
-                    Desde finales de 2024, el proyecto busca contribuir a la prevención y repuesta de la violencia de
-                    género en el país a partir de procesos y acciones encaminadas al cambio de imaginarios sociales, el
-                    fortalecimiento de la atención a víctimas y la participación de grupos de mujeres en la respuesta
-                    territorial. “No más…” se implementa en seis municipios cubanos: Marianao y Plaza de la Revolución
-                    en La Habana; Bayamo en la provincia Granma; el municipio cabecera Las Tunas; el municipio El
-                    Salvador y Guantánamo, en el extremo suroriental. <br>
-                    <br>
+                <p>
+                    El Observatorio sobre Violencia de Género en Medios de Comunicación (OVGMC) surge como uno
+                    de los resultados del proyecto "No Más: prevención y respuesta a la violencia de género
+                    contra las mujeres en Cuba".
+                </p>
+                <p>
+                    "No más…" es una iniciativa impulsada por la Federación de Mujeres Cubanas (FMC), la
+                    Editorial de la Mujer, la asociación italiana COSPE, el Centro Martin Luther King, en
+                    alianza con el Grupo Galfisa del Instituto de Filosofía y la Unión Nacional de Juristas de
+                    Cuba (UNJC); con el apoyo de la Unión Europea en Cuba.
+                </p>
+                <p>
+                    Desde finales de 2024, el proyecto busca contribuir a la prevención y respuesta de la
+                    violencia de género en el país a partir de procesos y acciones encaminadas al cambio de
+                    imaginarios sociales, el fortalecimiento de la atención a víctimas y la participación de
+                    grupos de mujeres en la respuesta territorial. "No más…" se implementa en seis municipios
+                    cubanos: Marianao y Plaza de la Revolución en La Habana; Bayamo en la provincia Granma; el
+                    municipio cabecera Las Tunas; el municipio El Salvador y Guantánamo, en el extremo
+                    suroriental.
+                </p>
+                <p>
                     El OVGMC de la Editorial de la Mujer constituye una plataforma de monitoreo y análisis del
-                    tratamiento mediático de la violencia contra las mujeres, tanto en la prensa como en entornos
-                    digitales de los territorios donde se desarrolla el proyecto. En este sentido, permite: <br>
-
+                    tratamiento mediático de la violencia contra las mujeres, tanto en la prensa como en
+                    entornos digitales de los territorios donde se desarrolla el proyecto. En este sentido,
+                    permite:
                 </p>
             </div>
 
             <div class="card-grid">
-                <div class="card"><i class="fas fa-chart-line"></i>
+                <div class="card">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
                     <p>Analizar las narrativas mediáticas sobre la violencia de género.</p>
                 </div>
-                <div class="card"><i class="fas fa-clipboard-list"></i>
+                <div class="card">
+                    <i class="fas fa-clipboard-list" aria-hidden="true"></i>
                     <p>Proponer indicadores que cuestionen estereotipos y desigualdades.</p>
                 </div>
-                <div class="card"><i class="fas fa-lightbulb"></i>
+                <div class="card">
+                    <i class="fas fa-lightbulb" aria-hidden="true"></i>
                     <p>Generar recomendaciones para un tratamiento comunicativo responsable, evitando la
                         revictimización.</p>
                 </div>
-                <div class="card"><i class="fas fa-hand-sparkles"></i>
+                <div class="card">
+                    <i class="fas fa-hand-sparkles" aria-hidden="true"></i>
                     <p>Identificar buenas prácticas en la cobertura del tema.</p>
                 </div>
             </div>
+
             <div class="timeline">
-                <p style="margin-bottom: 20px;">Autoras del primer corte del OVGMC: Yuset Puig Pupo, Iris Neysi
-                    Hernández Rodríguez y Adalys Ray Haynes.</p>
+                <p>Autoras del primer corte del OVGMC: Yuset Puig Pupo, Iris Neysi Hernández Rodríguez y Adalys
+                    Ray Haynes.</p>
             </div>
 
             <div class="mapa-cuba">
-                <strong>Municipios monitoreados:</strong> Centro Habana, Las Tunas ciudad, Bayamo, Guantánamo, Santiago
-                de Cuba, Holguín.
+                <strong>Municipios monitoreados:</strong> Centro Habana, Las Tunas ciudad, Bayamo, Guantánamo,
+                Santiago de Cuba, Holguín.
             </div>
-        </div>
-        
+        </section>
 
-        <!-- =============== PÁGINA ¿QUÉ MONITOREAMOS? =============== -->
-        <div id="monitoreo-page" class="page">
-            <h2>¿Qué monitoreamos?</h2>
+        <!-- ============ MONITOREO ============ -->
+        <section id="monitoreo-page" class="page" aria-labelledby="monitoreo-title">
+            <h2 id="monitoreo-title">¿Qué monitoreamos?</h2>
+
             <div class="timeline">
-                <p>En 2025 el estudio puso el foco en la Jornada 16 días de activismo contra la violencia de género que
-                    comienza el 25 de noviembre, Día Internacional para Eliminar la Violencia contra las mujeres y las
-                    niñas, y se extiende hasta el 10 de diciembre, Día Internacional de los Derechos Humanos. <br>
-                    <br>
-                    • Las versiones impresas de los periódicos que tienen una frecuencia semanal fueron analizadas las
-                    dos últimas ediciones de noviembre y las dos primeras de diciembre de 2025. <br>
-                    • Los canales de publicación digital: Del 25 de noviembre al 10 de diciembre de 2025. <br>
-                    • Radios, telecentros, corresponsalía y Portal Ciudadano: Análisis de las narrativas periodísticas
-                    sobre VCM trasmitidas del 25 de noviembre al 10 de diciembre de 2025. <br>
-
-                    <br>
-                    La muestra es resultado de una observación y selección profunda del sistema de comunicación social
-                    en el ámbito mediático al servicio de los seis municipios incluidos en el proyecto.
-                    Definimos así las nueves instituciones mediáticas implicadas pertenecientes a la radio, la
+                <p>
+                    En 2025 el estudio puso el foco en la Jornada 16 días de activismo contra la violencia de
+                    género que comienza el 25 de noviembre, Día Internacional para Eliminar la Violencia contra
+                    las mujeres y las niñas, y se extiende hasta el 10 de diciembre, Día Internacional de los
+                    Derechos Humanos.
+                </p>
+                <ul class="lista-monitoreo">
+                    <li>Las versiones impresas de los periódicos que tienen una frecuencia semanal fueron
+                        analizadas las dos últimas ediciones de noviembre y las dos primeras de diciembre de 2025.</li>
+                    <li>Los canales de publicación digital: Del 25 de noviembre al 10 de diciembre de 2025.</li>
+                    <li>Radios, telecentros, corresponsalía y Portal Ciudadano: Análisis de las narrativas
+                        periodísticas sobre VCM transmitidas del 25 de noviembre al 10 de diciembre de 2025.</li>
+                </ul>
+                <p>
+                    La muestra es resultado de una observación y selección profunda del sistema de comunicación
+                    social en el ámbito mediático al servicio de los seis municipios incluidos en el proyecto.
+                    Definimos así las nueve instituciones mediáticas implicadas pertenecientes a la radio, la
                     televisión, prensa escrita, corresponsalías y plataformas digitales.
                 </p>
             </div>
 
-            <h2> Medios por provincia </h2>
+            <h2>Medios por provincia</h2>
+
             <div class="acordeon">
-                <div class="acordeon-header"> La Habana - 4 medios</div>
-                <div class="acordeon-content">Periódico Tribuna de La Habana, Radio Coco, Radio Ciudad de La Habana y
-                    Canal Habana.</div>
-            </div>
-            <div class="acordeon">
-                <div class="acordeon-header"> Las Tunas - 3 medios</div>
-                <div class="acordeon-content">Periódico 26, Radio Victoria y TunasVisión.</div>
-            </div>
-            <div class="acordeon">
-                <div class="acordeon-header"> Bayamo - 4 medios</div>
-                <div class="acordeon-content">Periódico La Demajagua, Radio Bayamo, Radio Ciudad Monumento, y CNC
-                    Granma.</div>
-            </div>
-            <div class="acordeon">
-                <div class="acordeon-header"> Guantánamo - 3 medios</div>
-                <div class="acordeon-content">Periódico Venceremos, Radio CMKS Trinchera Antiimperialista y Solvisión.
+                <button type="button" class="acordeon-header" aria-expanded="false">
+                    La Habana - 4 medios
+                </button>
+                <div class="acordeon-content">
+                    Periódico Tribuna de La Habana, Radio Coco, Radio Ciudad de La Habana y Canal Habana.
                 </div>
             </div>
             <div class="acordeon">
-                <div class="acordeon-header"> El Salvador - 2 medios</div>
-                <div class="acordeon-content">Portal Ciudadano de la localidad y producción de contenidos desde la
-                    Corresponsalía de Radio Radio CMKS.</div>
+                <button type="button" class="acordeon-header" aria-expanded="false">
+                    Las Tunas - 3 medios
+                </button>
+                <div class="acordeon-content">
+                    Periódico 26, Radio Victoria y TunasVisión.
+                </div>
             </div>
-            <div class="mapa-cuba" style="margin-top:1rem;"><i class="fas fa-chart-simple"></i> Muestra representativa:
-                16 medios entre radio, TV y prensa digital.</div>
+            <div class="acordeon">
+                <button type="button" class="acordeon-header" aria-expanded="false">
+                    Bayamo - 4 medios
+                </button>
+                <div class="acordeon-content">
+                    Periódico La Demajagua, Radio Bayamo, Radio Ciudad Monumento, y CNC Granma.
+                </div>
+            </div>
+            <div class="acordeon">
+                <button type="button" class="acordeon-header" aria-expanded="false">
+                    Guantánamo - 3 medios
+                </button>
+                <div class="acordeon-content">
+                    Periódico Venceremos, Radio CMKS Trinchera Antiimperialista y Solvisión.
+                </div>
+            </div>
+            <div class="acordeon">
+                <button type="button" class="acordeon-header" aria-expanded="false">
+                    El Salvador - 2 medios
+                </button>
+                <div class="acordeon-content">
+                    Portal Ciudadano de la localidad y producción de contenidos desde la Corresponsalía de
+                    Radio CMKS.
+                </div>
+            </div>
+
+            <div class="mapa-cuba" style="margin-top:1rem;">
+                <i class="fas fa-chart-simple" aria-hidden="true"></i>
+                Muestra representativa: 16 medios entre radio, TV y prensa digital.
+            </div>
+
             <div class="kpi">
                 <div class="kpi-card">
                     <h3>10 200 min</h3>
@@ -165,66 +224,95 @@
                     <p>Medios digitales</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- =============== PÁGINA RESULTADOS + ENCUESTA + COMPARATIVO =============== -->
-        <div id="resultados-page" class="page">
+        <!-- ============ RESULTADOS + ENCUESTA ============ -->
+        <section id="resultados-page" class="page" aria-labelledby="resultados-title">
 
-            <div id="preSurveyBlock"
-                style="background:#6e0e94; border-radius: 1.5rem; padding:1.5rem; margin-bottom:1.5rem;">
-                <h2 style="color: white;">¿Quieres encontrarte con los resultados?</h2>
-                <p style="color: white; margin-bottom: 10px;">Responde esta encuesta. Podrás monitorear tu propio medio
-                    de prensa y a la vez comparar tu realidad con la de otros medios.</p>
-                <div class="encuesta-form" id="formDatosPrevios">
-                    <label><strong>Tipo de medio (marca varios):</strong></label>
-                    <div class="checkbox-group" id="mediosCheck">
-                        <label><input type="checkbox" value="radio"> Radio</label>
-                        <label><input type="checkbox" value="tv"> TV</label>
-                        <label><input type="checkbox" value="prensa_escrita"> Prensa escrita</label>
-                        <label><input type="checkbox" value="prensa_digital"> Prensa digital</label>
-                        <label><input type="checkbox" value="multimedio"> Multimedio</label>
+            <!-- Bloque previo (datos demográficos) -->
+            <div id="preSurveyBlock" class="encuesta-panel">
+                <h2 id="resultados-title" class="encuesta-panel-title">¿Quieres encontrarte con los resultados?</h2>
+                <p class="encuesta-panel-desc">
+                    Responde esta encuesta. Podrás monitorear tu propio medio de prensa y a la vez comparar tu
+                    realidad con la de otros medios.
+                </p>
+
+                <form class="encuesta-form" id="formDatosPrevios" novalidate>
+                    <fieldset>
+                        <legend><strong>Tipo de medio (marca varios):</strong></legend>
+                        <div class="checkbox-group" id="mediosCheck">
+                            <label><input type="checkbox" value="radio"> Radio</label>
+                            <label><input type="checkbox" value="tv"> TV</label>
+                            <label><input type="checkbox" value="prensa_escrita"> Prensa escrita</label>
+                            <label><input type="checkbox" value="prensa_digital"> Prensa digital</label>
+                            <label><input type="checkbox" value="multimedio"> Multimedio</label>
+                        </div>
+                    </fieldset>
+
+                    <label for="edadUser">Edad:</label>
+                    <input type="number" id="edadUser" name="edad" min="14" max="120" placeholder="Ej: 34" required>
+
+                    <fieldset>
+                        <legend>Género:</legend>
+                        <div class="radio-group">
+                            <label><input type="radio" name="genero" value="Mujer"> Mujer</label>
+                            <label><input type="radio" name="genero" value="Hombre"> Hombre</label>
+                            <label><input type="radio" name="genero" value="No binario"> No binario</label>
+                            <label><input type="radio" name="genero" value="Mujer Trans"> Mujer Trans</label>
+                            <label><input type="radio" name="genero" value="Hombre Trans"> Hombre Trans</label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Color de la piel:</legend>
+                        <div class="radio-group">
+                            <label><input type="radio" name="piel" value="Negra"> Negra</label>
+                            <label><input type="radio" name="piel" value="Mestiza"> Mestiza</label>
+                            <label><input type="radio" name="piel" value="Blanca"> Blanca</label>
+                        </div>
+                    </fieldset>
+
+                    <label class="consent-label">
+                        <input type="checkbox" id="consentimientoCheck">
+                        Acepto que mis datos sean analizados para fines estadísticos.
+                    </label>
+
+                    <div class="form-actions">
+                        <button type="button" id="iniciarEncuestaBtn" class="btn-primary">Iniciar Encuesta</button>
                     </div>
-                    <label>Edad:</label>
-                    <input type="number" id="edadUser" placeholder="Ej: 34">
-                    <label>Género:</label>
-                    <div class="radio-group"><label><input type="radio" name="genero" value="Mujer">
-                            Mujer</label><label><input type="radio" name="genero" value="Hombre">
-                            Hombre</label><label><input type="radio" name="genero" value="No binario"> No
-                            binario</label><label><input type="radio" name="genero" value="Mujer Trans"> Mujer
-                            Trans</label><label><input type="radio" name="genero" value="Hombre Trans"> Hombre
-                            Trans</label></div>
-                    <label>Color de la piel:</label>
-                    <div class="radio-group"><label><input type="radio" name="piel" value="Negra">
-                            Negra</label><label><input type="radio" name="piel" value="Mestiza">
-                            Mestiza</label><label><input type="radio" name="piel" value="Blanca"> Blanca</label></div>
-                    <label><input type="checkbox" id="consentimientoCheck"> Acepto que mis datos sean analizados para
-                        fines estadísticos.</label>
-                    <div style="margin-top:1rem"><button id="iniciarEncuestaBtn">Iniciar Encuesta</button></div>
-                    <div id="msgConsent" style="color:red;"></div>
-                </div>
+                    <div id="msgConsent" class="msg-error" role="alert"></div>
+                </form>
             </div>
 
-            <!-- Sección Encuesta (aparece después de consentimiento) - VERSIÓN INTERACTIVA -->
+            <!-- Preguntas -->
             <div id="encuestaPreguntasBlock" style="display:none;">
-                <h3> Preguntas:</h3>
-                <p style="color:#4a627a;"> Marca una opción en cada pregunta y automáticamente verás el resultado del
-                    Observatorio.</p> <br>
-                <!-- Botón para reiniciar encuesta -->
-                <button id="btnReiniciarEncuesta" style="background-color: #be2b3a; margin-bottom: 1rem;">
-                    Reiniciar encuesta
-                </button>
+
+                <!-- Barra de control: progreso + botón salir -->
+                <div class="encuesta-toolbar">
+                    <span class="encuesta-toolbar-info" id="toolbarProgreso">
+                        📋 Encuesta en curso
+                    </span>
+                    <button type="button" class="btn-salir" id="btnSalirEncuesta">
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Salir de la encuesta
+                    </button>
+                </div>
+
+                <h3>Preguntas:</h3>
+                <p class="encuesta-hint">
+                    Marca una opción en cada pregunta y automáticamente verás el resultado del Observatorio.
+                </p>
                 <div id="preguntasContainer"></div>
-                <!-- Mensaje final de cierre (opcional) -->
-                <div id="mensajeFinalEncuesta" style="margin-top: 1.5rem; font-weight: bold; text-align:center;"></div>
+                <div id="mensajeFinalEncuesta" class="mensaje-final"></div>
             </div>
-            <!-- Sección comparativa: resultados + observatorio -->
+
+            <!-- Comparativa / recomendaciones (se muestra al final) -->
             <div id="comparativoBlock" style="display:none; margin-top: 2rem;">
                 <hr>
-                <h2><i class="fas fa-chart-simple"></i> Comparativa: tus respuestas vs Observatorio</h2>
+                <h2><i class="fas fa-chart-simple" aria-hidden="true"></i> Comparativa: tus respuestas vs Observatorio</h2>
                 <div id="comparativoDinamico"></div>
-                <!-- Recomendaciones -->
+
                 <div id="recomendacionesFinal">
-                    <h3><i class="fas fa-list-check"></i> 10 Recomendaciones del estudio</h3>
+                    <h3><i class="fas fa-list-check" aria-hidden="true"></i> 10 Recomendaciones del estudio</h3>
                     <div class="recomendaciones-grid">
                         <div class="recom-item">1. Capacitar en perspectiva de género a periodistas.</div>
                         <div class="recom-item">2. Evitar el sensacionalismo en casos de violencia.</div>
@@ -237,39 +325,65 @@
                         <div class="recom-item">9. Alianzas con organizaciones feministas.</div>
                         <div class="recom-item">10. Campañas de sensibilización en medios.</div>
                     </div>
-                    <div style="background:#eef2ff; border-radius:1.5rem; padding:1rem; margin:1rem 0;">
 
-                        <button onclick="recargarPagina()">Terminar Encuesta</button>
-                    </div>
-                    <div class="hero" style="background:#f2e6d5;">
+                    <div class="recurso-box">
                         <h3>Recurso: Una ruta frente a la violencia</h3>
                         <p>Descarga la guía práctica para coberturas responsables.</p>
-                        <button>Descargar PDF</button>
+                        <button type="button" id="btnDescargarPDF" class="btn-primary">Descargar PDF</button>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ============ CONTACTOS ============ -->
+        <section id="contactos-page" class="page" aria-labelledby="contactos-title">
+            <h2 id="contactos-title">Contactos</h2>
+
+            <!-- 
+            =====================================================
+            ZONA VACÍA PREPARADA PARA CONTENIDO FUTURO
+            =====================================================
+            Cuando quieras añadir contenido, reemplaza el bloque
+            <div class="contactos-placeholder"> ... </div> por tu
+            estructura real (formulario, mapa, correos, redes, etc.)
+            =====================================================
+            -->
+            <div class="contactos-placeholder">
+                <i class="fas fa-address-book" aria-hidden="true"></i>
+                <p>Esta sección está en construcción.</p>
+                <p class="contactos-placeholder-sub">Aquí podrás encontrar los datos de contacto del Observatorio.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ MODAL DE SALIDA DE ENCUESTA ============ -->
+    <div class="modal-overlay" id="modalSalir" role="dialog" aria-modal="true" aria-labelledby="modalSalirTitulo">
+        <div class="modal-box">
+            <h3 id="modalSalirTitulo">¿Salir de la encuesta?</h3>
+            <p>Puedes guardar tu progreso para continuar más tarde o salir sin guardar.</p>
+            <div class="modal-actions">
+                <button type="button" class="btn-guardar-salir" id="btnGuardarSalir">
+                    💾 Guardar y salir
+                </button>
+                <button type="button" class="btn-salir-sin-guardar" id="btnSalirSinGuardar">
+                    🗑️ Salir sin guardar
+                </button>
+                <button type="button" class="btn-cancelar-salir" id="btnCancelarSalir">
+                    ↩️ Cancelar
+                </button>
             </div>
         </div>
     </div>
 
     <footer>
         <div class="footer-logos">
-            <img src="tira-logos-removebg.png" alt="">
+            <img src="tira-logos-removebg.png" alt="Logos de organizaciones aliadas del proyecto No Más">
         </div>
-        <p style="text-align:center">observatorio@nomas.cu | Investigación: Colectivo "No Más" · Autoras: María
-            Castellanos, Laura Peña, Ana Silvia.</p>
-        <p style="text-align:center; margin-top:0.5rem;">© 2026 Observatorio de Medios - Libertad de expresión con
-            igualdad.</p>
+        <p class="footer-mail">observatorio@nomas.cu</p>
+        <p class="footer-copy">© 2026 Observatorio de Medios | Editorial de la Mujer</p>
     </footer>
-    <script src="js/script.js"></script>
-    <!-- 
-    ==================================================
-    AUTORÍA: Jonathan Machado Isern 
-    PROYECTO: Observatorio "No Más"
-    FECHA: 2026
-    LICENCIA: Todos los derechos reservados
-    CONTACTO: jonathanisern@gmail.com
-    ==================================================
--->
+
+    <script src="js/script.js" defer></script>
 </body>
 
 </html>
